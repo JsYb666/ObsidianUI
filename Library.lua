@@ -9988,70 +9988,71 @@ function Tab:AddKeyBox(Callback)
     end
     assert(typeof(Callback) == "function", "Callback must be a function")
 
-            local Holder = New("Frame", {
-                BackgroundTransparency = 1,
-                Size = UDim2.new(0.75, 0, 0, 21),
-                Parent = TabContainer,
-            })
+    local Holder = New("Frame", {
+        BackgroundTransparency = 1,
+        Size = UDim2.new(0.75, 0, 0, 21),
+        Parent = TabContainer,
+    })
 
-            local Box = New("TextBox", {
-                BackgroundColor3 = "MainColor",
-                PlaceholderText = "Key",
-                Size = UDim2.new(1, -71, 1, 0),
-                TextSize = 14,
-                TextXAlignment = Enum.TextXAlignment.Left,
-                Parent = Holder,
-            })
-            New("UIPadding", {
-                PaddingLeft = UDim.new(0, 8),
-                PaddingRight = UDim.new(0, 8),
-                Parent = Box,
-            })
-            New("UIStroke", {
-                Color = "OutlineColor",
-                Parent = Box,
-            })
-            table.insert(
-                Library.Corners,
-                New("UICorner", {
-                    CornerRadius = UDim.new(0, Library.CornerRadius / 2),
-                    Parent = Box,
-                })
-            )
+    local Box = New("TextBox", {
+        BackgroundColor3 = "MainColor",
+        PlaceholderText = "Key",
+        Size = UDim2.new(1, -71, 1, 0),
+        TextSize = 14,
+        TextXAlignment = Enum.TextXAlignment.Left,
+        Parent = Holder,
+    })
+    New("UIPadding", {
+        PaddingLeft = UDim.new(0, 8),
+        PaddingRight = UDim.new(0, 8),
+        Parent = Box,
+    })
+    New("UIStroke", {
+        Color = "OutlineColor",
+        Parent = Box,
+    })
+    table.insert(
+        Library.Corners,
+        New("UICorner", {
+            CornerRadius = UDim.new(0, Library.CornerRadius / 2),
+            Parent = Box,
+        })
+    )
 
-            local Button = New("TextButton", {
-                AnchorPoint = Vector2.new(1, 0),
-                BackgroundColor3 = "MainColor",
-                Position = UDim2.fromScale(1, 0),
-                Size = UDim2.new(0, 63, 1, 0),
-                Text = "Execute",
-                TextSize = 14,
-                Parent = Holder,
-            })
-            New("UIStroke", {
-                Color = "OutlineColor",
-                Parent = Button,
-            })
-            table.insert(
-                Library.Corners,
-                New("UICorner", {
-                    CornerRadius = UDim.new(0, Library.CornerRadius / 2),
-                    Parent = Button,
-                })
-            )
+    local Button = New("TextButton", {
+        AnchorPoint = Vector2.new(1, 0),
+        BackgroundColor3 = "MainColor",
+        Position = UDim2.fromScale(1, 0),
+        Size = UDim2.new(0, 63, 1, 0),
+        Text = "Execute",
+        TextSize = 14,
+        Parent = Holder,
+    })
+    New("UIStroke", {
+        Color = "OutlineColor",
+        Parent = Button,
+    })
+    table.insert(
+        Library.Corners,
+        New("UICorner", {
+            CornerRadius = UDim.new(0, Library.CornerRadius / 2),
+            Parent = Button,
+        })
+    )
 
-            Button.InputBegan:Connect(function(Input)
-                if not IsClickInput(Input) then
-                    return
-                end
-
-                if not Library:MouseIsOverFrame(Button, Input.Position) then
-                    return
-                end
-
-                Callback(Box.Text)
-            end)
+    Button.InputBegan:Connect(function(Input)
+        if not IsClickInput(Input) then
+            return
         end
+        if not Library:MouseIsOverFrame(Button, Input.Position) then
+            return
+        end
+        if not Box then
+            return
+        end
+        Callback(Box.Text)
+    end)
+end
         
         function Tab:Destroy()
             if TabCanvas then
