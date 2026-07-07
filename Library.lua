@@ -9980,9 +9980,12 @@ function Library:CreateWindow(WindowInfo)
             Window = Window,
             Canvas = TabCanvas
         }
-
-        function Tab:AddKeyBox(Callback)
-            assert(typeof(Callback) == "function", "Callback must be a function")
+			
+function Tab:AddKeyBox(Callback)
+    if typeof(Callback) == "table" then
+        Callback = Callback.Callback or Callback.Func
+    end
+    assert(typeof(Callback) == "function", "Callback must be a function")
 
             local Holder = New("Frame", {
                 BackgroundTransparency = 1,
